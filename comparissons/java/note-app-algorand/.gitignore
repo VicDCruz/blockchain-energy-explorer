@@ -36,10 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/.idea/.gitignore
-/.idea/encodings.xml
-/.idea/jpa-buddy.xml
-/.idea/misc.xml
-/.idea/vcs.xml
+/.idea/
 
 keys.csv
