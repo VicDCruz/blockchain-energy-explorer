@@ -12,7 +12,7 @@ public class Main {
         mine(6, "e7wM2iSaaNssTJcHZRGaZYTEoSibEm6sqDdNm");
     }
 
-    public static void mine(int prefix, String genesisHash) throws NoSuchAlgorithmException {
+    public static void mine(int prefix, String genesisHash) {
         long millis = System.currentTimeMillis();
         String prefixString = "0".repeat(prefix);
         String hashString;
