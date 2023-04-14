@@ -9,7 +9,7 @@ public class Main {
     public static String data = "Hello, world!";
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        mine(6, "e7wM2iSaaNssTJcHZRGaZYTEoSibEm6sqDdNm");
+        mine(5, "e7wM2iSaaNssTJcHZRGaZYTEoSibEm6sqDdNm");
     }
 
     public static void mine(int prefix, String genesisHash) {

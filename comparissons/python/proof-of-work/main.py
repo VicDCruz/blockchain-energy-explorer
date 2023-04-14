@@ -23,4 +23,4 @@ def calculate_hash(genesis, milliseconds):
 
 
 if __name__ == '__main__':
-    mine(6, 'e7wM2iSaaNssTJcHZRGaZYTEoSibEm6sqDdNm')
+    mine(5, 'e7wM2iSaaNssTJcHZRGaZYTEoSibEm6sqDdNm')
