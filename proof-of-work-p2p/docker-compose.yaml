@@ -1,14 +1,20 @@
 version: "3"
 
 services:
-  pow:
+  pow-no-jit:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-no-jit
     networks:
       pow_network:
 #    volumes:
 #      - ./:/code
+  pow-jit:
+    build:
+      context: .
+      dockerfile: Dockerfile-with-jit
+    networks:
+      pow_network:
 
 networks:
   pow_network:

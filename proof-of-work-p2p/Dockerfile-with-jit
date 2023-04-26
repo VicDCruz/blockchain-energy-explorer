@@ -41,4 +41,4 @@ RUN mvn install:install-file -Dfile=./lib/FreePastry-2.1.jar -DgroupId=free-past
 RUN mvn package
 
 # Entry command
-CMD [ "java", "-jar", "target/proof-of-work-p2p-1.0-SNAPSHOT-jar-with-dependencies.jar", "9001", "10.0.0.2" ]
+CMD [ "java", "-XX:+UnlockExperimentalVMOptions", "-XX:+EnableJVMCI", "-XX:+UseJVMCICompiler", "-jar", "target/proof-of-work-p2p-1.0-SNAPSHOT-jar-with-dependencies.jar", "9001", "10.0.0.2" ]
