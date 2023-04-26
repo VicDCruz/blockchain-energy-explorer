@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  pow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      pow_network:
+#    volumes:
+#      - ./:/code
+
+networks:
+  pow_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
