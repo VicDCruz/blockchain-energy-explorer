@@ -9,42 +9,45 @@ import rice.pastry.leafset.LeafSet;
 import rice.pastry.socket.SocketPastryNodeFactory;
 import rice.pastry.standard.RandomNodeIdFactory;
 
-import java.net.InetAddress;
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.text.MessageFormat;
 import java.util.Collection;
 
 
 public class FreePastryExample {
+
+    public static final int WAIT_MILLIS_TO_CONNECT = 5_000;
+
     public FreePastryExample(int bindPort, InetSocketAddress bootAddress, Environment environment) throws Exception {
-        NodeIdFactory nidFactory = new RandomNodeIdFactory(environment);
-        PastryNodeFactory factory = new SocketPastryNodeFactory(nidFactory, bindPort, environment);
-        PastryNode node = factory.newNode();
+        PastryNode node = createPastryNode(bindPort, environment);
+
         FreePastryApplication application = new FreePastryApplication(node);
         node.boot(bootAddress);
 
-        System.out.println("Node " + node.getId().toString() + " created");
-//        environment.getTimeSource().sleep(10_000);
-//        Id randomId = nidFactory.generateNodeId();
-//        application.routeMessage(randomId);
+        System.out.println("Node " + node.getId().toStringFull() + " created");
 
-        environment.getTimeSource().sleep(10_000);
+        this.waitOthers(environment);
+
         LeafSet leafSet = node.getLeafSet();
         Collection<NodeHandle> collection = leafSet.getUniqueSet();
+        application.setTotalPeers(collection.size());
+        application.mine();
         for (NodeHandle nodeHandle : collection) {
             application.routeMessageDirect(nodeHandle);
             environment.getTimeSource().sleep(1000);
+            application.increaseMessagesSent();
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Environment environment = new Environment();
-        environment.getParameters().setString("nat_search_policy", "never");
-        int bindPort = 9002;
-        int bootPort = 9001;
-        InetAddress bootInetAddress = InetAddress.getByName(InetAddress.getLocalHost().getHostAddress());
-        InetSocketAddress bootAddress = new InetSocketAddress(bootInetAddress, bootPort);
-        System.out.println("InetAddress: " + bootInetAddress);
+    private void waitOthers(Environment environment) throws InterruptedException {
+        System.out.println(MessageFormat.format("Wait {0} secs for others to connect", WAIT_MILLIS_TO_CONNECT));
+        environment.getTimeSource().sleep(WAIT_MILLIS_TO_CONNECT); // wait others to connect
+    }
 
-        FreePastryExample freePastryExample = new FreePastryExample(bindPort, bootAddress, environment);
+    private PastryNode createPastryNode(int bindPort, Environment environment) throws IOException {
+        NodeIdFactory nidFactory = new RandomNodeIdFactory(environment);
+        PastryNodeFactory factory = new SocketPastryNodeFactory(nidFactory, bindPort, environment);
+        return factory.newNode();
     }
 }
