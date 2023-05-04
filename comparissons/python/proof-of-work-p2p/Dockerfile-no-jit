@@ -1,0 +1,12 @@
+FROM python:3.9-alpine3.16
+
+RUN pip install p2pnetwork
+
+# Import files
+WORKDIR /code
+
+COPY ./src ./src
+COPY ./main.py .
+
+# Entry command
+CMD [ "python", "main.py"]
