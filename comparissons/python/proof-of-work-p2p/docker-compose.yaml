@@ -9,12 +9,12 @@ services:
       pow_network:
   #    volumes:
   #      - ./:/code
-#  pow-jit:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-with-jit
-#    networks:
-#      pow_network:
+  pow-jit:
+    build:
+      context: .
+      dockerfile: Dockerfile-with-jit
+    networks:
+      pow_network:
 
 networks:
   pow_network:
