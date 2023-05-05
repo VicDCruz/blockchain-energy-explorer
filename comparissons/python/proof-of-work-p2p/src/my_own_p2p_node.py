@@ -33,3 +33,6 @@ class MyOwnPeer2PeerNode(Node):
 
     def get_total_inbound_messages(self):
         return len(self.inbound_messages)
+
+    def get_total_inbounds_connected(self):
+        return len(self.nodes_inbound)
