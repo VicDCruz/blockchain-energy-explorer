@@ -29,3 +29,6 @@ Use `energy-consumption-graphs` to get the graphs related to those reports.
 
 1. Insert the files in `data` folder.
 2. Run `main.py` to get the graph
+
+# References
+* https://www.cse.wustl.edu/~jain/cse567-06/ftp/traffic_models3/index.html#Poisson%20Distribution%20Model
