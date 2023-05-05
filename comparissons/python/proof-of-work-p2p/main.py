@@ -1,5 +1,6 @@
 import json
 import socket
+import sys
 import time
 from datetime import datetime
 from multiprocessing import Process, Queue
@@ -39,9 +40,9 @@ if __name__ == '__main__':
     proc = Process(target=miner.mine, args=(5, node.id, millis, queue))
     proc.start()
 
-    for i in range(2, 6):
-        print(f"Connecting to {ip_address[0:-1] + str(i)}:10001")
-        node.connect_with_node(ip_address[0:-1] + str(i), 10001)
+    for i in range(int(sys.argv[1]) + 1):
+        print(f"Connecting to {ip_address[0:-1] + str(2 + i)}:10001")
+        node.connect_with_node(ip_address[0:-1] + str(2 + i), 10001)
 
     proc.join()
     nonce = queue.get()
@@ -53,9 +54,8 @@ if __name__ == '__main__':
 
     time.sleep(5)  # Create here your main loop of the application
 
-    while node.get_total_inbound_messages() < 2:
-        print(f"Still not there {node.get_total_inbound_messages()}...")
-        pass
+    while node.get_total_inbound_messages() < node.get_total_inbounds_connected():
+        print(f"Still not there {node.get_total_inbound_messages()}/{node.get_total_inbounds_connected()}...")
     choose_winner(node.inbound_messages)
     node.stop()
     queue.close()

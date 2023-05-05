@@ -9,4 +9,4 @@ COPY ./src ./src
 COPY ./main.py .
 
 # Entry command
-CMD [ "python", "main.py"]
+CMD [ "python", "main.py", "4"]
