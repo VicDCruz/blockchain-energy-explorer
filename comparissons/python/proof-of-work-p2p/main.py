@@ -54,8 +54,10 @@ if __name__ == '__main__':
 
     time.sleep(5)  # Create here your main loop of the application
 
-    while node.get_total_inbound_messages() < node.get_total_inbounds_connected():
+    limit = 0
+    while node.get_total_inbound_messages() < node.get_total_inbounds_connected() and limit < 20:
         print(f"Still not there {node.get_total_inbound_messages()}/{node.get_total_inbounds_connected()}...")
+        limit += 1
     choose_winner(node.inbound_messages)
     node.stop()
     queue.close()
